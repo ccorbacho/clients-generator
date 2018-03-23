@@ -254,9 +254,6 @@ class KalturaObjectFactory(object):
 # Abstract base class for all client objects
 class KalturaObjectBase(object):
     def __init__(self, relatedObjects=NotImplemented):
-
-        # @var map of KalturaListResponse
-        # @readonly
         self.relatedObjects = relatedObjects
 
         KalturaObjectBase.PROPERTY_LOADERS = {
@@ -326,16 +323,14 @@ class KalturaConfiguration(object):
 
 # Client plugin interface class
 class IKalturaClientPlugin(object):
-    # @return KalturaClientPlugin
+
     @staticmethod
     def get():
         raise NotImplementedError()
 
-    # @return array<KalturaServiceBase>
     def getServices(self):
         raise NotImplementedError()
 
-    # @return string
     def getName(self):
         raise NotImplementedError()
 

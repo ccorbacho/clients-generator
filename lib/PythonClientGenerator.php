@@ -51,12 +51,6 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		}
 		
     	$this->startNewTextBlock();
-		
-		if($this->generateDocs)
-		{
-			$this->appendLine("# @package $this->package");
-			$this->appendLine("# @subpackage $this->subpackage");
-		}
 
         $this->appendLine('from __future__ import absolute_import');
         $this->appendLine('');
@@ -189,13 +183,6 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 	{
 		$enumName = $enumNode->getAttribute("name");
 		$enumBase = "object";
-		
-		if($this->generateDocs)
-		{
-			$this->appendLine("# @package $this->package");
-			$this->appendLine("# @subpackage $this->subpackage");
-		}
-		
 	 	$this->appendLine("class $enumName($enumBase):");
 	 	foreach($enumNode->childNodes as $constNode)
 		{
@@ -258,12 +245,6 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 	function writeClass(DOMElement $classNode)
 	{
 		$type = $classNode->getAttribute("name");
-		
-		if($this->generateDocs)
-		{
-			$this->appendLine("# @package $this->package");
-			$this->appendLine("# @subpackage $this->subpackage");
-		}
 		
 		// class definition
 		if ($classNode->hasAttribute("base"))
@@ -566,12 +547,6 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		
 		$serviceClassName = "Kaltura".$this->upperCaseFirstLetter($serviceName)."Service";
 		$this->appendLine();
-		
-		if($this->generateDocs)
-		{
-			$this->appendLine("# @package $this->package");
-			$this->appendLine("# @subpackage $this->subpackage");
-		}
 		
 		$this->appendLine("class $serviceClassName(KalturaServiceBase):");
 		
