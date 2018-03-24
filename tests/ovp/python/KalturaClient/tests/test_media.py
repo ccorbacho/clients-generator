@@ -24,7 +24,7 @@ class MediaTests(KalturaBaseTest):
     def test_createRemote(self):
         mediaEntry = KalturaMediaEntry()
         mediaEntry.setName('pytest.MediaTests.test_createRemote')
-        mediaEntry.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        mediaEntry.setMediaType(KalturaMediaType.VIDEO)
 
         ulFile = getTestFile('DemoVideo.flv')
         uploadTokenId = self.client.media.upload(ulFile)
@@ -45,7 +45,7 @@ class Utf8_tests(KalturaBaseTest):
         test_unicode = six.u('\u03dd\xf5\xf6')
         mediaEntry = KalturaMediaEntry()
         mediaEntry.setName(u'pytest.MediaTests.test_UTF8_name'+test_unicode)
-        mediaEntry.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        mediaEntry.setMediaType(KalturaMediaType.VIDEO)
         ulFile = getTestFile('DemoVideo.flv')
         uploadTokenId = self.client.media.upload(ulFile)
 
@@ -60,7 +60,7 @@ class Utf8_tests(KalturaBaseTest):
         test_unicode = u'\u03dd\xf5\xf6'
         mediaEntry = KalturaMediaEntry()
         mediaEntry.setName('pytest.MediaTests.test_UTF8_tags')
-        mediaEntry.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        mediaEntry.setMediaType(KalturaMediaType.VIDEO)
         ulFile = getTestFile('DemoVideo.flv')
         uploadTokenId = self.client.media.upload(ulFile)
 

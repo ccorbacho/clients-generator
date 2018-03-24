@@ -39,7 +39,7 @@ class UiConfTests(KalturaBaseTest):
         objs = resp.objects
 
         for o in objs:
-            self.assertIn(o.objType.getValue(), players)
+            self.assertIn(o.objType, players)
 
     '''def test_get_playlist_players(self):
         """Until I find a better way... this gets all uiconfs that are
@@ -60,7 +60,7 @@ class UiConfTests(KalturaBaseTest):
         objs = resp.objects
 
         for o in objs:
-            self.assertIn(o.objType.getValue(), players)
+            self.assertIn(o.objType, players)
             match = re.search('isPlaylist="(.*?)"', o.getConfFile())
             self.assertIsNotNone(match, "isPlaylist not found in confFile")
 
@@ -85,7 +85,7 @@ class UiConfTests(KalturaBaseTest):
         objs = resp.objects
 
         for o in objs:
-            self.assertIn(o.objType.getValue(), players)
+            self.assertIn(o.objType, players)
             match = re.search('isPlaylist="(.*?)"', o.getConfFile())
             if match is None:
                 pass

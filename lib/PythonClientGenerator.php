@@ -74,7 +74,6 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine('    getXmlNodeInt,');
 		$this->appendLine('    getXmlNodeText,');
 		$this->appendLine('    KalturaClientPlugin,');
-		$this->appendLine('    KalturaEnumsFactory,');
 		$this->appendLine('    KalturaObjectBase,');
 		$this->appendLine('    KalturaObjectFactory,');
 		$this->appendLine('    KalturaParams,');
@@ -185,24 +184,25 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		$enumName = $enumNode->getAttribute("name");
 		$enumBase = "object";
 	 	$this->appendLine("class $enumName($enumBase):");
-	 	foreach($enumNode->childNodes as $constNode)
+		if (count($enumNode->childNodes))
 		{
-			if ($constNode->nodeType != XML_ELEMENT_NODE)
-				continue;
-				
-			$propertyName = $constNode->getAttribute("name");
-			$propertyValue = $constNode->getAttribute("value");
-			if ($enumNode->getAttribute("enumType") == "string")
-				$this->appendLine("    $propertyName = \"$propertyValue\"");
-			else
-				$this->appendLine("    $propertyName = $propertyValue");
-		}		
-		$this->appendLine();
-		$this->appendLine("    def __init__(self, value):");
-		$this->appendLine("        self.value = value");
-		$this->appendLine();
-		$this->appendLine("    def getValue(self):");
-		$this->appendLine("        return self.value");
+			foreach($enumNode->childNodes as $constNode)
+			{
+				if ($constNode->nodeType != XML_ELEMENT_NODE)
+					continue;
+
+				$propertyName = $constNode->getAttribute("name");
+				$propertyValue = $constNode->getAttribute("value");
+				if ($enumNode->getAttribute("enumType") == "string")
+					$this->appendLine("	   $propertyName = \"$propertyValue\"");
+				else
+					$this->appendLine("	   $propertyName = $propertyValue");
+			}
+		}
+		else
+		{
+			$this->appendLine("	   pass");
+		}
 		$this->appendLine();
 	}
 	
@@ -406,26 +406,10 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 				case "bigint":
 				case "int" :
 				case "time" :
-					if ($isEnum) 
-					{
-						$enumType = $propertyNode->getAttribute ( "enumType" );
-						$curLine .= "(KalturaEnumsFactory.createInt, \"$enumType\")";
-					} 
-					else
-					{
-						$curLine .= "getXmlNodeInt";
-					}
+					$curLine .= "getXmlNodeInt";
 					break;
 				case "string" :
-					if ($isEnum) 
-					{
-						$enumType = $propertyNode->getAttribute ( "enumType" );
-						$curLine .= "(KalturaEnumsFactory.createString, \"$enumType\")";
-					} 
-					else
-					{
-						$curLine .= "getXmlNodeText";
-					}
+					$curLine .= "getXmlNodeText";
 					break;
 				case "bool" :
 					$curLine .= "getXmlNodeBool";

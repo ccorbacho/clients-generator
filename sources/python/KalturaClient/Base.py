@@ -340,37 +340,6 @@ class KalturaClientPlugin(IKalturaClientPlugin):
     pass
 
 
-# Kaltura enums factory
-class KalturaEnumsFactory(object):
-    enumFactories = {}
-
-    @staticmethod
-    def create(enumValue, enumType):
-        if enumType not in KalturaEnumsFactory.enumFactories:
-            raise KalturaClientException(
-                "Unrecognized enum '%s'" % enumType,
-                KalturaClientException.ERROR_INVALID_OBJECT_TYPE)
-        return KalturaEnumsFactory.enumFactories[enumType](enumValue)
-
-    @staticmethod
-    def createInt(enumNode, enumType):
-        enumValue = getXmlNodeInt(enumNode)
-        if enumValue is None:
-            return None
-        return KalturaEnumsFactory.create(enumValue, enumType)
-
-    @staticmethod
-    def createString(enumNode, enumType):
-        enumValue = getXmlNodeText(enumNode)
-        if enumValue == '':
-            return None
-        return KalturaEnumsFactory.create(enumValue, enumType)
-
-    @staticmethod
-    def registerEnums(objs):
-        KalturaEnumsFactory.enumFactories.update(objs)
-
-
 # Implement to get Kaltura Client logs
 class IKalturaLogger(object):
     def log(self, msg):

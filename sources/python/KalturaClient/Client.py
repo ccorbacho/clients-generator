@@ -32,7 +32,6 @@ from KalturaClient.Base import (
     IKalturaClientPlugin,
     IKalturaLogger,
     KALTURA_SERVICE_FORMAT_XML,
-    KalturaEnumsFactory,
     KalturaObjectBase,
     KalturaObjectFactory,
     KalturaParams,
@@ -200,7 +199,6 @@ class KalturaClient(object):
                 pluginProxy.addService(serviceName, serviceClass)
 
     def registerPluginObjects(self, plugin):
-        KalturaEnumsFactory.registerEnums(plugin.getEnums())
         KalturaObjectFactory.registerObjects(plugin.getTypes())
 
     def addCoreService(self, serviceName, serviceClass):

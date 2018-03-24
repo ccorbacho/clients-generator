@@ -76,7 +76,7 @@ class SingleRequestTests(KalturaBaseTest):
         mediaEntry = KalturaMediaEntry()
         mediaEntry.setName(
             "Media Entry Using Python Client ver %s" % (API_VERSION,))
-        mediaEntry.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        mediaEntry.setMediaType(KalturaMediaType.VIDEO)
         mediaEntry = self.client.media.addFromUploadedFile(
             mediaEntry, uploadTokenId)
 

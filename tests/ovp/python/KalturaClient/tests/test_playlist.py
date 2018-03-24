@@ -36,8 +36,7 @@ class PlaylistTests(KalturaBaseTest):
         kplaylist = KalturaPlaylist()
         kplaylist.setName('pytest.PlaylistTests.test_createRemote')
         kplaylist.setPlaylistType(
-            KalturaPlaylistType(
-                KalturaPlaylistType.STATIC_LIST))  # ??? STATIC LIST ???
+            KalturaPlaylistType.STATIC_LIST)  # ??? STATIC LIST ???
 
         kplaylist = self.client.playlist.add(kplaylist)
         self.assertIsInstance(kplaylist, KalturaPlaylist)
@@ -60,7 +59,7 @@ class PlaylistTests(KalturaBaseTest):
         kplaylist.setName(referenceId)
         kplaylist.setReferenceId(referenceId)
         kplaylist.setPlaylistType(
-            KalturaPlaylistType(KalturaPlaylistType.STATIC_LIST))
+            KalturaPlaylistType.STATIC_LIST)
         kplaylist = self.client.playlist.add(kplaylist)
         self.addCleanup(self.client.playlist.delete, kplaylist.getId())
 
@@ -75,7 +74,7 @@ class PlaylistTests(KalturaBaseTest):
     def test_updateStaticContent(self):
         mediaEntry1 = KalturaMediaEntry()
         mediaEntry1.setName('pytest.PlaylistTests.test_updateStaticContent1')
-        mediaEntry1.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        mediaEntry1.setMediaType(KalturaMediaType.VIDEO)
         ulFile = getTestFile('DemoVideo.flv')
         uploadTokenId = self.client.media.upload(ulFile)
         mediaEntry1 = self.client.media.addFromUploadedFile(
@@ -85,7 +84,7 @@ class PlaylistTests(KalturaBaseTest):
 
         mediaEntry2 = KalturaMediaEntry()
         mediaEntry2.setName('pytest.PlaylistTests.test_updateStaticContent2')
-        mediaEntry2.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        mediaEntry2.setMediaType(KalturaMediaType.VIDEO)
         ulFile = getTestFile('DemoVideo.flv')
         uploadTokenId = self.client.media.upload(ulFile)
         mediaEntry2 = self.client.media.addFromUploadedFile(
@@ -99,7 +98,7 @@ class PlaylistTests(KalturaBaseTest):
         kplaylist = KalturaPlaylist()
         kplaylist.setName('pytest.PlaylistTests.test_updateStaticContent')
         kplaylist.setPlaylistType(
-            KalturaPlaylistType(KalturaPlaylistType.STATIC_LIST))
+            KalturaPlaylistType.STATIC_LIST)
 
         kplaylist.setPlaylistContent(playlistContent)
         kplaylist = self.client.playlist.add(kplaylist)
@@ -119,7 +118,7 @@ class PlaylistTests(KalturaBaseTest):
         kplaylist.setName(referenceId)
         kplaylist.setReferenceId(referenceId)
         kplaylist.setPlaylistType(
-            KalturaPlaylistType(KalturaPlaylistType.STATIC_LIST))
+            KalturaPlaylistType.STATIC_LIST)
         kplaylist = self.client.playlist.add(kplaylist)
         self.addCleanup(self.client.playlist.delete, kplaylist.getId())
 
@@ -129,7 +128,7 @@ class PlaylistTests(KalturaBaseTest):
 
         mediaEntry = KalturaMediaEntry()
         mediaEntry.setName(referenceId)
-        mediaEntry.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        mediaEntry.setMediaType(KalturaMediaType.VIDEO)
         ulFile = getTestFile('DemoVideo.flv')
         uploadTokenId = self.client.media.upload(ulFile)
         mediaEntry = self.client.media.addFromUploadedFile(
@@ -155,7 +154,7 @@ class PlaylistTests(KalturaBaseTest):
         kplaylist.setName(
             'pytest.PlaylistTests.test_updateExceptionReferenceIdNotSet')
         kplaylist.setPlaylistType(
-            KalturaPlaylistType(KalturaPlaylistType.STATIC_LIST))
+            KalturaPlaylistType.STATIC_LIST)
         kplaylist = self.client.playlist.add(kplaylist)
         self.addCleanup(self.client.playlist.delete, kplaylist.getId())
 
@@ -176,7 +175,7 @@ class DynamicPlaylistTests(KalturaBaseTest):
         kplaylist = KalturaPlaylist()
         kplaylist.setName('pytest.PlaylistTests.test_createRemote')
         kplaylist.setPlaylistType(
-            KalturaPlaylistType(KalturaPlaylistType.DYNAMIC))
+            KalturaPlaylistType.DYNAMIC)
 
         # must add a totalResults field
         kplaylist.setTotalResults(10)
@@ -199,7 +198,7 @@ class DynamicPlaylistTests(KalturaBaseTest):
         #mediaEntry.setName(referenceId)
         #mediaEntry.setReferenceId(referenceId)
         #mediaEntry.setTags('footag')
-        #mediaEntry.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        #mediaEntry.setMediaType(KalturaMediaType.VIDEO)
         #ulFile = getTestFile('DemoVideo.flv')
         #uploadTokenId = self.client.media.upload(ulFile)
         #mediaEntry = self.client.media.addFromUploadedFile(mediaEntry, uploadTokenId)
@@ -208,7 +207,7 @@ class DynamicPlaylistTests(KalturaBaseTest):
         ##create a playlist
         #kplaylist = KalturaPlaylist()
         #kplaylist.setName(referenceId)
-        #kplaylist.setPlaylistType(KalturaPlaylistType(KalturaPlaylistType.DYNAMIC))
+        #kplaylist.setPlaylistType(KalturaPlaylistType.DYNAMIC)
         #kplaylist.setTotalResults(10)
         #kplaylist.setReferenceId(referenceId)
 
@@ -226,8 +225,8 @@ class DynamicPlaylistTests(KalturaBaseTest):
         #print "Waiting for Media Entry to be 'Ready'"
         #sleeptime=5
         #mediaEntry = self.client.media.get(mediaEntry.getId())
-        #while mediaEntry.getStatus().getValue() != '2':
-            #print "media entry status is %s " % (mediaEntry.getStatus().getValue())
+        #while mediaEntry.getStatus() != '2':
+            #print "media entry status is %s " % (mediaEntry.getStatus())
             #time.sleep(sleeptime)
             #mediaEntry = self.client.media.get(mediaEntry.getId())
 
@@ -247,7 +246,7 @@ class DynamicPlaylistTests(KalturaBaseTest):
         #mediaEntry.setName(referenceId)
         #mediaEntry.setReferenceId(referenceId)
         #mediaEntry.setCategories(categories)
-        #mediaEntry.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        #mediaEntry.setMediaType(KalturaMediaType.VIDEO)
         #ulFile = getTestFile('DemoVideo.flv')
         #uploadTokenId = self.client.media.upload(ulFile)
         #mediaEntry = self.client.media.addFromUploadedFile(mediaEntry, uploadTokenId)
@@ -256,7 +255,7 @@ class DynamicPlaylistTests(KalturaBaseTest):
         ##create a playlist
         #kplaylist = KalturaPlaylist()
         #kplaylist.setName(referenceId)
-        #kplaylist.setPlaylistType(KalturaPlaylistType(KalturaPlaylistType.DYNAMIC))
+        #kplaylist.setPlaylistType(KalturaPlaylistType.DYNAMIC)
         #kplaylist.setTotalResults(10)
         #kplaylist.setReferenceId(referenceId)
 
@@ -271,8 +270,8 @@ class DynamicPlaylistTests(KalturaBaseTest):
         #print "Waiting for Media Entry to be 'Ready'"
         #sleeptime=5
         #mediaEntry = self.client.media.get(mediaEntry.getId())
-        #while mediaEntry.getStatus().getValue() != '2':
-            #print "media entry status is %s " % (mediaEntry.getStatus().getValue())
+        #while mediaEntry.getStatus() != '2':
+            #print "media entry status is %s " % (mediaEntry.getStatus())
             #time.sleep(sleeptime)
             #mediaEntry = self.client.media.get(mediaEntry.getId())
 
@@ -302,7 +301,7 @@ class DynamicPlaylistTests(KalturaBaseTest):
         mediaEntry.setName(referenceId)
         mediaEntry.setReferenceId(referenceId)
         mediaEntry.setCategoriesIds(subCategory.getId())
-        mediaEntry.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        mediaEntry.setMediaType(KalturaMediaType.VIDEO)
         ulFile = getTestFile('DemoVideo.flv')
         uploadTokenId = self.client.media.upload(ulFile)
         mediaEntry = self.client.media.addFromUploadedFile(
@@ -313,7 +312,7 @@ class DynamicPlaylistTests(KalturaBaseTest):
         kplaylist = KalturaPlaylist()
         kplaylist.setName(referenceId)
         kplaylist.setPlaylistType(
-            KalturaPlaylistType(KalturaPlaylistType.DYNAMIC))
+            KalturaPlaylistType.DYNAMIC)
         kplaylist.setTotalResults(10)
         kplaylist.setReferenceId(referenceId)
 
@@ -328,10 +327,10 @@ class DynamicPlaylistTests(KalturaBaseTest):
         print("Waiting for Media Entry to be 'Ready'")
         sleeptime = 5
         mediaEntry = self.client.media.get(mediaEntry.getId())
-        while mediaEntry.getStatus().getValue() != '2':
+        while mediaEntry.getStatus() != '2':
             print(
                 "media entry status is {}".format(
-                    mediaEntry.getStatus().getValue()))
+                    mediaEntry.getStatus()))
             time.sleep(sleeptime)
             mediaEntry = self.client.media.get(mediaEntry.getId())
 
@@ -366,7 +365,7 @@ class DynamicPlaylistTests(KalturaBaseTest):
         #mediaEntry.setName(referenceId)
         #mediaEntry.setReferenceId(referenceId)
         #mediaEntry.setCategoriesIds(subCategory.getId())
-        #mediaEntry.setMediaType(KalturaMediaType(KalturaMediaType.VIDEO))
+        #mediaEntry.setMediaType(KalturaMediaType.VIDEO)
         #ulFile = getTestFile('DemoVideo.flv')
         #uploadTokenId = self.client.media.upload(ulFile)
         #mediaEntry = self.client.media.addFromUploadedFile(mediaEntry, uploadTokenId)
@@ -387,7 +386,7 @@ class DynamicPlaylistTests(KalturaBaseTest):
         ##create a playlist
         #kplaylist = KalturaPlaylist()
         #kplaylist.setName(referenceId)
-        #kplaylist.setPlaylistType(KalturaPlaylistType(KalturaPlaylistType.DYNAMIC))
+        #kplaylist.setPlaylistType(KalturaPlaylistType.DYNAMIC)
         #kplaylist.setTotalResults(10)
         #kplaylist.setReferenceId(referenceId)
 
@@ -403,10 +402,10 @@ class DynamicPlaylistTests(KalturaBaseTest):
         #sleeptime=5
         #mediaEntry, mediaEntry2 = (self.client.media.get(mediaEntry.getId()),
                                    #self.client.media.get(mediaEntry2.getId()))
-        #while mediaEntry.getStatus().getValue() != '2' \
-              #and mediaEntry2.getStatus().getValue() != '2':
-            #print "media entry status is %s, %s " % (mediaEntry.getStatus().getValue(),
-                                                     #mediaEntry2.getStatus().getValue() )
+        #while mediaEntry.getStatus() != '2' \
+              #and mediaEntry2.getStatus() != '2':
+            #print "media entry status is %s, %s " % (mediaEntry.getStatus(),
+                                                     #mediaEntry2.getStatus() )
             #time.sleep(sleeptime)
             #mediaEntry, mediaEntry2 = (self.client.media.get(mediaEntry.getId()),
                                    #self.client.media.get(mediaEntry2.getId()))

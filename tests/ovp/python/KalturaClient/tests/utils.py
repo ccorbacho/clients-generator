@@ -4,7 +4,6 @@ import unittest
 from six.moves import configparser
 
 from KalturaClient import KalturaClient, KalturaConfiguration
-from KalturaClient.Base import KalturaObjectFactory, KalturaEnumsFactory
 from KalturaClient.Base import IKalturaLogger
 
 from KalturaClient.Plugins.Core import KalturaSessionType
