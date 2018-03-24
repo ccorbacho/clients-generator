@@ -73,7 +73,6 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine('    getXmlNodeFloat,');
 		$this->appendLine('    getXmlNodeInt,');
 		$this->appendLine('    getXmlNodeText,');
-		$this->appendLine('    KalturaClientPlugin,');
 		$this->appendLine('    KalturaEnumsFactory,');
 		$this->appendLine('    KalturaObjectBase,');
 		$this->appendLine('    KalturaObjectFactory,');
@@ -136,7 +135,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		
 		$this->appendLine('########## main ##########');
 				
-		$this->appendLine("class $pluginClassName(KalturaClientPlugin):");
+		$this->appendLine("class $pluginClassName(object):");
 		$this->appendLine('    instance = None');
 		$this->appendLine('');
 		
