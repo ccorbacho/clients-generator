@@ -54,6 +54,9 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 
         $this->appendLine('from __future__ import absolute_import');
         $this->appendLine('');
+        $this->appendLine('import six');
+        $this->appendLine('from typing import Dict, List');
+        $this->appendLine('');
 		
 		if ($pluginName != '')
 		{
@@ -134,24 +137,22 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine('########## main ##########');
 				
 		$this->appendLine("class $pluginClassName(KalturaClientPlugin):");
-		$this->appendLine("    # $pluginClassName");
 		$this->appendLine('    instance = None');
 		$this->appendLine('');
 		
-		$this->appendLine("    # @return $pluginClassName");
 		$this->appendLine('    @staticmethod');
 		$this->appendLine('    def get():');
 		$this->appendLine("        if $pluginClassName.instance == None:");
 		$this->appendLine("            $pluginClassName.instance = $pluginClassName()");
 		$this->appendLine("        return $pluginClassName.instance");
 		$this->appendLine('');
-		$this->appendLine('    # @return array<KalturaServiceBase>');
 		$this->appendLine('    def getServices(self):');
+		$this->appendLine('        # type: () -> Dict[str, KalturaServiceBase]');
 		$this->appendLine('        return {');
 		foreach($services as $service)
 		{
 			$serviceName = ucfirst($service);
-			$this->appendLine("            '$service': Kaltura{$serviceName}Service,");
+			$this->appendLine("            six.u('$service'): Kaltura{$serviceName}Service,");
 		}
 		$this->appendLine('        }');
 		$this->appendLine('');
@@ -159,7 +160,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine('        return {');
 		foreach($enums as $enumName)
 		{
-			$this->appendLine("            '$enumName': $enumName,");
+			$this->appendLine("            six.u('$enumName'): $enumName,");
 		}
 		$this->appendLine('        }');
 		$this->appendLine('');
@@ -167,13 +168,13 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine('        return {');
 		foreach($classes as $className)
 		{
-			$this->appendLine("            '$className': $className,");
+			$this->appendLine("            six.u('$className'): $className,");
 		}
 		$this->appendLine('        }');
 		$this->appendLine('');
-		$this->appendLine('    # @return string');
 		$this->appendLine('    def getName(self):');
-		$this->appendLine("        return '$pluginName'");
+		$this->appendLine('        # type: () -> six.text_type');
+		$this->appendLine("        return six.u('$pluginName')");
 		$this->appendLine('');
 		
     	$this->addFile($outputFileName, $this->getTextBlock());
@@ -341,15 +342,10 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 				$this->appendLine($description);
 			
 			if ($propType == "array")
-				$this->appendLine("        # @var $propType of {$propertyNode->getAttribute("arrayType")}");
-			else
-				$this->appendLine("        # @var $propType");
-			if ($isReadOnly )
-				$this->appendLine("        # @readonly");
-			if ($isInsertOnly)
-				$this->appendLine("        # @insertonly");
-			
-			$this->appendLine("        self.$propName = $propName");
+                $pythonType = "List[{$propertyNode->getAttribute("arrayType")}]";
+            else
+                $pythonType = $propType;
+			$this->appendLine("        self.$propName = $propName  # type: $pythonType");
 			$this->appendLine("");
 		}
 		$this->appendLine();
